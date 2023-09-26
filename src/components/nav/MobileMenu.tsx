@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState, useEffect } from "react";
 
-const MobileMenu = ({ showMobile }) => {
+interface MobileMenuProps {
+  showMobile: () => void;
+}
+
+const MobileMenu = ({ showMobile }: MobileMenuProps) => {
   const [touchedHome, setTouchedHome] = useState(false);
   const [touchedLibrary, setTouchedLibrary] = useState(false);
   const [touchedContact, setTouchedContact] = useState(false);

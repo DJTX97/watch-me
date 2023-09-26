@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import video from "../assets/videos/People.mp4";
+import video from "/assets/videos/People.mp4";
 
 
 const Movie = () => {
@@ -11,7 +11,7 @@ const Movie = () => {
 
 
   return (
-    <div className="bg-banner bg-center bg-fixed bg-cover bg-no-repeat text-white">
+    <div className="text-white">
       <div className="flex flex-col items-center gap-10">
         <div className="rounded-xl bg-black shadow-lg shadow-red-600 text-3xl md:text-6xl w-3/4 p-5 text-center mt-10">
           You are watching "{name}"

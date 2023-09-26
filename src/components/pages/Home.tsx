@@ -12,7 +12,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex bg-banner bg-center bg-fixed bg-cover bg-no-repeat h-screen justify-center">
+    <div className="flex justify-center min-h-screen">
       <p className="text-6xl md:text-8xl lg:text-9xl mt-28 md:mt-40 select-none text-center text-white">
         THE ONLY movie site you'll EVER NEED!
       </p>

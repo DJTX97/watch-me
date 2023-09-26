@@ -1,7 +1,6 @@
-
-import PIMG from "../assets/images/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import PIMG from "/assets/images/placeholder.png";
 
 interface CardProps {
   name: string;

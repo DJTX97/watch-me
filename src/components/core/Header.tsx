@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState, useEffect, useRef } from "react";
 
-import logo from "../assets/images/logo.png";
+import logo from "/assets/images/logo.png";
 import SearchBar from "./SearchBar";
-import MobileMenu from "./MobileMenu";
-import NormalMenu from "./NormalMenu";
+import MobileMenu from "../nav/MobileMenu";
+import NormalMenu from "../nav/DesktopMenu";
 
 const Header = () => {
   // 'active' is the mobile menu state and 'isMobile' is the screen size state ('isMobile' is not mandatory.).
@@ -40,10 +40,10 @@ const Header = () => {
   // 2. Add ref to hamburger button.
   // 3. Define 'hide' function to check the click event and hide the menu.
   // 4. Bind the 'hide' function to an event listener inside a useEffect.
-  const ref = useRef(null);
+  const ref = useRef<HTMLButtonElement | null>(null);
 
   const hide = (e:any) => {
-    if (!ref.current.contains(e.target)) {
+    if (ref.current && !ref.current.contains(e.target)) {
       setActive(false);
     }
   };

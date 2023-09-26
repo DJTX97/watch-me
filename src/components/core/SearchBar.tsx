@@ -2,16 +2,11 @@ import { GrSearch } from "react-icons/gr";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import data from "../data/data.json";
+import data from "../../data/data.json";
 
 const SearchBar = () => {
   // 'movies' object
   const movies = data.movies;
-
-  //Array of movies inside 'movies' object
-  // const movieList = movies.map((movie) => {
-  //   return movie.title;
-  // });
 
   const search = useNavigate();
 
@@ -50,7 +45,7 @@ const SearchBar = () => {
   };
 
   // Autofocus input functionality: define 'ref' for input field and add onClick event in selection divs.
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Button bg change onTouch.
   const [touchedSearch, setTouchedSearch] = useState(false);
@@ -68,21 +63,7 @@ const SearchBar = () => {
     };
   }, [touchedSearch]);
 
-  // const [touchedOption, setTouchedOption] = useState(false);
 
-  // const touchOption = () => {
-  //   setTouchedOption(!touchedOption);
-  // };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     touchedOption === true && setTouchedOption(false);
-  //   }, 200);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [touchedOption]);
 
   return (
     <>
@@ -134,9 +115,8 @@ const SearchBar = () => {
               key={movie.id}
               onClick={() => {
                 getSearch(movie.title);
-                inputRef.current.focus();
+                inputRef.current && inputRef.current.focus();
               }}
-              // onTouchStart={touchOption}
             >
               {movie.title}
             </div>
