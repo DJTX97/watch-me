@@ -6,7 +6,7 @@ const Contact = () => {
 
   const [content, setContent] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // console.log(content)
 
     // Prevents page refresh to avoid losing state data.
@@ -78,7 +78,7 @@ const Contact = () => {
           <input
             type="submit"
             value="Submit"
-            onTouchStart={touchSubmit}
+            onClick={touchSubmit}
             className={`w-52 rounded-xl bg-black shadow-lg shadow-red-600 p-5 hover:bg-gray-700 transition-color duration-200 cursor-pointer ${
               touchedSubmit && "bg-gray-700"
             }`}
