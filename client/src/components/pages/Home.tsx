@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import SearchBar from "../core/SearchBar";
 
 const Home = () => {
   useEffect(() => {
@@ -12,10 +13,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex bg-banner bg-center bg-fixed bg-cover bg-no-repeat h-screen justify-center">
-      <p className="text-6xl md:text-8xl lg:text-9xl mt-28 md:mt-40 select-none text-center text-white">
-        THE ONLY movie site you'll EVER NEED!
+    <div className="flex flex-col items-center pt-20 min-h-screen">
+      <p className="text-2xl md:text-4xl select-none text-center text-white">
+        WatchMe.com - The ONLY MOVIE site you'll EVER NEED!
       </p>
+      <SearchBar />
     </div>
   );
 };

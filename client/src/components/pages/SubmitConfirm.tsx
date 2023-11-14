@@ -18,7 +18,7 @@ const SubmitConfirm = () => {
   }, [location.state]);
 
   return (
-    <div className="flex bg-banner bg-center bg-fixed bg-cover bg-no-repeat h-screen justify-center">
+    <div className="flex justify-center min-h-screen">
       <div className="text-6xl md:text-8xl lg:text-8xl mt-32 select-none text-center text-white">
         Your message was sent successfully!
       </div>

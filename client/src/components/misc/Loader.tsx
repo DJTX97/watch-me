@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import loader from "../assets/videos/loading_wheel.gif";
+import loader from "/assets/videos/loading_wheel.gif";
 
 const Loader = () => {
   useEffect(() => {

@@ -1,5 +1,5 @@
-import Card from "../components/Card";
-import data from "../data/data.json";
+import Card from "../core/Card";
+import data from "../../data/data.json";
 
 const movies = data.movies;
 
@@ -8,8 +8,8 @@ const Library = () => {
 
   return (
     <>
-      <div className="bg-banner bg-cover bg-center bg-fixed bg-no-repeat">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-items-center pt-10">
+      <div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 justify-items-center pt-10">
           {movies.map((movie) => {
             return (
               <Card
