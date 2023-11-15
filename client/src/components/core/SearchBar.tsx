@@ -1,17 +1,41 @@
 import { GrSearch } from "react-icons/gr";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import data from "../../data/data.json";
 
-const movies = data.movies;
+const API = import.meta.env.HOST
+  ? `https://${import.meta.env.HOST}`
+  : "http://localhost:5000";
+
+interface Movie {
+  id: number;
+  title: string;
+  year: string;
+  runtime: string;
+  genres: string[];
+  director: string;
+  actors: string;
+  plot: string;
+  posterUrl: string;
+}
 
 const numOfSuggestions = 5;
 const SearchBar = () => {
   const search = useNavigate();
 
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const response = await fetch(API);
+      const data = await response.json();
+      setMovies(data.movies);
+    };
+    fetchMovies();
+  }, [movies]);
+
   const seeResult = () => {
-    const selection = movies.filter(
-      (movie) => movie.title === val && movie.title
+    const selection: Movie[] = movies.filter(
+      (movie: Movie) => movie.title === val && movie.title
     );
 
     if (selection[0]) {
@@ -61,12 +85,12 @@ const SearchBar = () => {
         className={`absolute top-16 md:left-10 flex flex-col w-full md:w-3/4 rounded-lg text-lg bg-white text-black shadow-xl shadow-black`}
       >
         {movies
-          .filter((movie) => {
+          .filter((movie: Movie) => {
             if (val !== "" && val !== movie.title) {
               return movie.title.toLowerCase().includes(val.toLowerCase());
             }
           })
-          .map((movie, index) => (
+          .map((movie: Movie, index) => (
             <div
               key={index}
               className="p-2 border-b rounded-lg hover:bg-gray-300 cursor-pointer"
