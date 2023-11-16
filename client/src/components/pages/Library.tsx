@@ -1,9 +1,5 @@
 import Card from "../core/Card";
-import { useState, useEffect } from "react";
-
-const API = import.meta.env.HOST
-  ? `https://${import.meta.env.HOST}`
-  : "http://localhost:5000";
+import { useMovies } from "../../hooks/useMovies";
 
 interface Movie {
   id: number;
@@ -20,16 +16,7 @@ interface Movie {
 const Library = () => {
   // bg-fixed makes bg image scroll with the page (infinite scroll illusion); height property is usually not required with it.
 
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await fetch(API);
-      const data = await response.json();
-      setMovies(data.movies);
-    };
-    fetchMovies();
-  }, [movies]);
+  const movies = useMovies();
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 justify-items-center pt-10">

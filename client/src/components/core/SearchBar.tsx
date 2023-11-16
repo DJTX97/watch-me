@@ -1,10 +1,7 @@
 import { GrSearch } from "react-icons/gr";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMovies } from "../../hooks/useMovies";
 import { useNavigate } from "react-router-dom";
-
-const API = import.meta.env.HOST
-  ? `https://${import.meta.env.HOST}`
-  : "http://localhost:5000";
 
 interface Movie {
   id: number;
@@ -21,59 +18,46 @@ interface Movie {
 const numOfSuggestions = 5;
 const SearchBar = () => {
   const search = useNavigate();
-
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await fetch(API);
-      const data = await response.json();
-      setMovies(data.movies);
-    };
-    fetchMovies();
-  }, [movies]);
+  const movies = useMovies();
+  const [searchVal, setSearchVal] = useState("");
 
   const seeResult = () => {
-    const selection: Movie[] = movies.filter(
-      (movie: Movie) => movie.title === val && movie.title
+    const options: Movie[] = movies.filter(
+      (movie: Movie) => movie.title === searchVal && movie.title
     );
 
-    if (selection[0]) {
+    if (options[0]) {
       search("library/movie", {
         state: {
-          name: selection[0].title,
-          actors: selection[0].actors,
-          plot: selection[0].plot,
-          genres: selection[0].genres.join(", "),
+          name: options[0].title,
+          actors: options[0].actors,
+          plot: options[0].plot,
+          genres: options[0].genres.join(", "),
         },
       });
     } else {
       search("*");
     }
 
-    setVal("");
+    setSearchVal("");
   };
 
-  const [val, setVal] = useState("");
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVal(e.target.value);
+    setSearchVal(e.target.value);
   };
 
   return (
     <div className="relative w-3/4 lg:w-1/2">
       <div className="flex">
-        <button
-          className="bg-white rounded-l-3xl pr-2 my-5 hover:bg-gray-300"
-        >
+        <button className="bg-white rounded-l-3xl pr-2 my-5 hover:bg-gray-300">
           <GrSearch className="ml-3" size={20} onClick={seeResult} />
         </button>
         <input
           type="text"
           placeholder="Search..."
-          value={val}
+          value={searchVal}
           onChange={handleChange}
-          onClick={() => val !== "" && setVal("")}
+          onClick={() => searchVal !== "" && setSearchVal("")}
           onKeyDown={(e) => {
             e.key === "Enter" && seeResult();
           }}
@@ -86,8 +70,10 @@ const SearchBar = () => {
       >
         {movies
           .filter((movie: Movie) => {
-            if (val !== "" && val !== movie.title) {
-              return movie.title.toLowerCase().includes(val.toLowerCase());
+            if (searchVal !== "" && searchVal !== movie.title) {
+              return movie.title
+                .toLowerCase()
+                .includes(searchVal.toLowerCase());
             }
           })
           .map((movie: Movie, index) => (
@@ -95,7 +81,7 @@ const SearchBar = () => {
               key={index}
               className="p-2 border-b rounded-lg hover:bg-gray-300 cursor-pointer"
               onClick={() => {
-                setVal(movie.title);
+                setSearchVal(movie.title);
               }}
             >
               {movie.title}
