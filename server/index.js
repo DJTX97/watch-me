@@ -4,7 +4,7 @@ const cors = require("cors");
 const db = require("./data");
 
 const app = express();
-//const port = 5000; //the port is only for local development (comment out before deployment)
+const port = process.env.HOST || 5000;
 //console.log(`HOST: ${process.env.HOST}`);
 
 app.use(cors());
@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  if (process.env.HOST && !port) {
+  if (process.env.HOST) {
     console.log(`Example app listening on ${process.env.HOST}`);
   } else {
     console.log(`Example app listening on http://localhost:${port}`);
