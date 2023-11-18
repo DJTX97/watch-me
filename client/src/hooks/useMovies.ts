@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-const API = import.meta.env.HOST
-  ? `https://${import.meta.env.HOST}`
+const API = import.meta.env.PROD
+  ? `${import.meta.env.VITE_HOST}`
   : "http://localhost:5000";
 
 export const useMovies = () => {
@@ -14,7 +14,7 @@ export const useMovies = () => {
       setMovies(data.movies);
     };
     fetchMovies();
-  }, [movies]);
+  }, []);
 
   return movies;
 };
