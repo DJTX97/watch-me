@@ -1,55 +1,63 @@
 import { GrSearch } from "react-icons/gr";
 import { useState } from "react";
+import { useMovies } from "../../hooks/useMovies";
 import { useNavigate } from "react-router-dom";
-import data from "../../data/data.json";
 
-const movies = data.movies;
+interface Movie {
+  id: number;
+  title: string;
+  year: string;
+  runtime: string;
+  genres: string[];
+  director: string;
+  actors: string;
+  plot: string;
+  posterUrl: string;
+}
 
 const numOfSuggestions = 5;
 const SearchBar = () => {
   const search = useNavigate();
+  const movies = useMovies();
+  const [searchVal, setSearchVal] = useState("");
 
   const seeResult = () => {
-    const selection = movies.filter(
-      (movie) => movie.title === val && movie.title
+    const options: Movie[] = movies.filter(
+      (movie: Movie) => movie.title === searchVal && movie.title
     );
 
-    if (selection[0]) {
+    if (options[0]) {
       search("library/movie", {
         state: {
-          name: selection[0].title,
-          actors: selection[0].actors,
-          plot: selection[0].plot,
-          genres: selection[0].genres.join(", "),
+          name: options[0].title,
+          actors: options[0].actors,
+          plot: options[0].plot,
+          genres: options[0].genres.join(", "),
         },
       });
     } else {
       search("*");
     }
 
-    setVal("");
+    setSearchVal("");
   };
 
-  const [val, setVal] = useState("");
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVal(e.target.value);
+    setSearchVal(e.target.value);
   };
 
   return (
     <div className="relative w-3/4 lg:w-1/2">
       <div className="flex">
-        <button
-          className="bg-white rounded-l-3xl pr-2 my-5 hover:bg-gray-300"
-        >
+        <button className="bg-white rounded-l-3xl pr-2 my-5 hover:bg-gray-300">
           <GrSearch className="ml-3" size={20} onClick={seeResult} />
         </button>
         <input
           type="text"
           placeholder="Search..."
-          value={val}
+          value={searchVal}
           onChange={handleChange}
-          onClick={() => val !== "" && setVal("")}
+          onClick={() => searchVal !== "" && setSearchVal("")}
           onKeyDown={(e) => {
             e.key === "Enter" && seeResult();
           }}
@@ -61,17 +69,19 @@ const SearchBar = () => {
         className={`absolute top-16 md:left-10 flex flex-col w-full md:w-3/4 rounded-lg text-lg bg-white text-black shadow-xl shadow-black`}
       >
         {movies
-          .filter((movie) => {
-            if (val !== "" && val !== movie.title) {
-              return movie.title.toLowerCase().includes(val.toLowerCase());
+          .filter((movie: Movie) => {
+            if (searchVal !== "" && searchVal !== movie.title) {
+              return movie.title
+                .toLowerCase()
+                .includes(searchVal.toLowerCase());
             }
           })
-          .map((movie, index) => (
+          .map((movie: Movie, index) => (
             <div
               key={index}
               className="p-2 border-b rounded-lg hover:bg-gray-300 cursor-pointer"
               onClick={() => {
-                setVal(movie.title);
+                setSearchVal(movie.title);
               }}
             >
               {movie.title}
