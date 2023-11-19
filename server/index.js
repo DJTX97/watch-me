@@ -21,6 +21,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", corsOptions.origin);
   res.json(db);
 });
 
