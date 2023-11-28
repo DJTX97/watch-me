@@ -12,7 +12,7 @@ const SearchBar = () => {
   const [searchVal, setSearchVal] = useState("");
 
   const seeResult = () => {
-    const options = movies?.filter(
+    const options: Movie[] = movies?.filter(
       (movie: Movie) => movie.title === searchVal && movie.title
     );
 
