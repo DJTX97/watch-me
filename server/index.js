@@ -12,7 +12,7 @@ const prodPort = process.env.HOST;
 corsOptions =
   process.env.NODE_ENV === "development"
     ? {
-        origin: "http://localhost:5000",
+        origin: "http://localhost:5173",
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
       }
     : {

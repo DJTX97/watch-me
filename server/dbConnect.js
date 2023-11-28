@@ -1,20 +1,18 @@
 const mongoose = require("mongoose");
 
-const DATABASE = process.env.NODE_ENV === "development" ? process.env.DATABASE_URI : process.env.MONGODB_URI;
+const DATABASE = process.env.MONGODB_URI;
 
 const connect = async () => {
-
-  mongoose
-    .connect(DATABASE, {
+  try {
+    await mongoose.connect(DATABASE, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    })
-    .then(() => {
-      console.log("Connected to MongoDB");
-    })
-    .catch((err) => {
-      console.error("Error connecting to MongoDB:", err);
-    });
+    }); // second argument is necessary for deployment services with Node.js Driver version lower than 4.0.0 and for security reasons
+
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
 };
 
 module.exports = connect;

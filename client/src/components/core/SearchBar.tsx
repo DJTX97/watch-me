@@ -1,32 +1,22 @@
 import { GrSearch } from "react-icons/gr";
 import { useState } from "react";
-import { useMovies } from "../../hooks/useMovies";
 import { useNavigate } from "react-router-dom";
-
-interface Movie {
-  id: number;
-  title: string;
-  year: string;
-  runtime: string;
-  genres: string[];
-  director: string;
-  actors: string;
-  plot: string;
-  posterUrl: string;
-}
+import { useAtom } from "jotai";
+import { films } from "../../data/store";
+import { Movie } from "../../types/Movie";
 
 const numOfSuggestions = 5;
 const SearchBar = () => {
   const search = useNavigate();
-  const movies = useMovies();
+  const [movies] = useAtom(films);
   const [searchVal, setSearchVal] = useState("");
 
   const seeResult = () => {
-    const options: Movie[] = movies.filter(
+    const options = movies?.filter(
       (movie: Movie) => movie.title === searchVal && movie.title
     );
 
-    if (options[0]) {
+    if (options) {
       search("library/movie", {
         state: {
           name: options[0].title,
@@ -68,17 +58,16 @@ const SearchBar = () => {
       <div
         className={`absolute top-16 md:left-10 flex flex-col w-full md:w-3/4 rounded-lg text-lg bg-white text-black shadow-xl shadow-black`}
       >
-        {movies
-          .filter((movie: Movie) => {
+        {movies?.filter((movie: Movie) => {
             if (searchVal !== "" && searchVal !== movie.title) {
               return movie.title
                 .toLowerCase()
                 .includes(searchVal.toLowerCase());
             }
           })
-          .map((movie: Movie, index) => (
+          .map((movie: Movie) => (
             <div
-              key={index}
+              key={movie.id}
               className="p-2 border-b rounded-lg hover:bg-gray-300 cursor-pointer"
               onClick={() => {
                 setSearchVal(movie.title);
