@@ -1,28 +1,38 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const db = require("./data");
+const connectToDB = require("./dbConnect");
+const Movie = require("./models/Movie");
+//const db = require("./data"); //static data for testing
 
 const app = express();
 const devPort = 5000;
 const prodPort = process.env.HOST;
 
-corsOptions = process.env.NODE_ENV === "development"
-  ? {
-    origin: "http://localhost:5000",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-  : {
-    origin: process.env.CLIENT,
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
+corsOptions =
+  process.env.NODE_ENV === "development"
+    ? {
+        origin: "http://localhost:5000",
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+      }
+    : {
+        origin: process.env.CLIENT,
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+      };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.header("Access-Control-Allow-Origin", corsOptions.origin);
-  res.json(db);
+connectToDB();
+
+app.get("/", async (req, res) => {
+  try {
+    const movies = await Movie.find({});
+    res.header("Access-Control-Allow-Origin", corsOptions.origin);
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 if (process.env.NODE_ENV === "development") {
@@ -34,4 +44,3 @@ if (process.env.NODE_ENV === "development") {
     console.log(`Example app listening on ${process.env.HOST}`);
   });
 }
-

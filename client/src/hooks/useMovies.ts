@@ -11,7 +11,8 @@ export const useMovies = () => {
     const fetchMovies = async () => {
       const response = await fetch(API);
       const data = await response.json();
-      setMovies(data.movies);
+      //console.log(data);
+      setMovies(data);
     };
     fetchMovies();
   }, []);
