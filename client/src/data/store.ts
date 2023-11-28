@@ -16,6 +16,6 @@ const fetchMovies = async () => {
   }
 };
 
-const receivedData = fetchMovies();
+const receivedData = await fetchMovies();
 
 export const films = atom(receivedData ?? []);
