@@ -5,7 +5,10 @@ const DATABASE = process.env.NODE_ENV === "development" ? process.env.DATABASE_U
 const connect = async () => {
 
   mongoose
-    .connect(DATABASE)
+    .connect(DATABASE, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     .then(() => {
       console.log("Connected to MongoDB");
     })
