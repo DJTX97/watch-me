@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectToDB = require("./dbConnect");
 const Movie = require("./models/Movie");
-//const db = require("./data"); //static data for testing
+//const db = require("./data"); //static data for testing purposes
 
 const app = express();
 const devPort = 5000;
