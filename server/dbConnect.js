@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
+const DATABASE = process.env.NODE_ENV === "development" ? process.env.DATABASE_URI : process.env.MONGODB_URI;
+
 const connect = async () => {
+
   mongoose
-    .connect(process.env.DATABASE_URI)
+    .connect(DATABASE)
     .then(() => {
       console.log("Connected to MongoDB");
     })
