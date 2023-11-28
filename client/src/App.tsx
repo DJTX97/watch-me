@@ -21,10 +21,10 @@ export default function App() {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="library" element={<Library />} />
-            <Route path="library/movie" element={<Movie />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="contact/confirmation" element={<SubmitConfirm />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/library/movie" element={<Movie />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact/confirmation" element={<SubmitConfirm />} />
             <Route path="*" element={<Error />} />
             {/* <Route path="/loader" element={<Loader />} /> */}
           </Routes>
