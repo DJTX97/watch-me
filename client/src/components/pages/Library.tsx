@@ -1,26 +1,25 @@
 import Card from "../core/Card";
-import { useMovies } from "../../hooks/useMovies";
+//import { useMovies } from "../../hooks/useMovies";
+import { useAtom } from "jotai";
+import { films } from "../../data/store";
+import { useEffect } from "react";
+import { Movie } from "../../types/Movie";
 
-interface Movie {
-  id: number;
-  title: string;
-  year: string;
-  runtime: string;
-  genres: string[];
-  director: string;
-  actors: string;
-  plot: string;
-  posterUrl: string;
-}
+
 
 const Library = () => {
   // bg-fixed makes bg image scroll with the page (infinite scroll illusion); height property is usually not required with it.
+  //const movies = useMovies();
 
-  const movies = useMovies();
+  const [movies] = useAtom(films);
+
+  useEffect(() => {
+    console.log(movies);
+  }, [])
 
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 justify-items-center pt-10">
-      {movies.map((movie: Movie) => {
+      {movies?.map((movie: Movie) => {
         return (
           <Card
             key={movie.id}
