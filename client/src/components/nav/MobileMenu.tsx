@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
+import { pages } from "../../nav_routes.json";
 
 interface MobileMenuProps {
   showMobile: () => void;
@@ -16,33 +17,17 @@ const MobileMenu = ({ showMobile }: MobileMenuProps) => {
         </button>
 
         <ul className="flex flex-col gap-3 w-full text-white text-xl uppercase items-center">
-          <li className="w-full flex text-center">
-            <Link
-              className={`w-full py-4 hover:bg-red-800`}
-              to="/"
-              onClick={showMobile}
-            >
-              Home
-            </Link>
-          </li>
-          <li className="w-full flex text-center">
-            <Link
-              className={`w-full py-4 hover:bg-red-800`}
-              to="/library"
-              onClick={showMobile}
-            >
-              Library
-            </Link>
-          </li>
-          <li className="w-full flex text-center">
-            <Link
-              className={`w-full py-4 hover:bg-red-800`}
-              to="/contact"
-              onClick={showMobile}
-            >
-              Contact
-            </Link>
-          </li>
+          {pages.map((page, index) => (
+            <li key={index} className="w-full flex text-center">
+              <Link
+                className={`w-full py-4 hover:bg-red-800`}
+                to={page.path}
+                onClick={showMobile}
+              >
+                {page.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </div>
