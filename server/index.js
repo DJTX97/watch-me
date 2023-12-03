@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectToDB = require("./dbConnect");
 const Movie = require("./models/Movie");
+const Genre = require("./models/Genre");
 //const db = require("./data"); //static data for testing purposes
 
 const app = express();
@@ -25,11 +26,23 @@ app.use(express.json());
 
 connectToDB();
 
+//get all movies
 app.get("/", async (req, res) => {
   try {
     const movies = await Movie.find({});
     res.header("Access-Control-Allow-Origin", corsOptions.origin);
     res.json(movies);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//get all genres
+app.get("/genres", async (req, res) => {
+  try {
+    const genres = await Genre.find({});
+    res.header("Access-Control-Allow-Origin", corsOptions.origin);
+    res.json(genres);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }

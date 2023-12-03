@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
 import { pages } from "../../nav_routes.json";
 
 interface MobileMenuProps {
