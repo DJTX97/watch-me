@@ -1,16 +1,8 @@
-
-import { useEffect } from "react";
 import SearchBar from "../core/SearchBar";
+import { useOverflow } from "../../hooks/useOverflow";
 
-const Home = () => {
-  useEffect(() => {
-    document.body.className !== "overflow-hidden" &&
-      document.body.classList.add("overflow-hidden");
-
-    return () => {
-      document.body.className = "";
-    };
-  }, []);
+export default function Home() {
+  useOverflow(false);
 
   return (
     <div className="flex flex-col items-center pt-20 min-h-screen">
@@ -20,6 +12,4 @@ const Home = () => {
       <SearchBar />
     </div>
   );
-};
-
-export default Home;
+}

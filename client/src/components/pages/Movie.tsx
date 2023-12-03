@@ -1,14 +1,10 @@
 import { useLocation } from "react-router-dom";
 import video from "/assets/videos/People.mp4";
 
-
-const Movie = () => {
-  
-
+export default function Movie() {
   const location = useLocation();
 
   const { name, actors, plot, genres } = location.state;
-
 
   return (
     <div className="text-white">
@@ -46,6 +42,4 @@ const Movie = () => {
       </div>
     </div>
   );
-};
-
-export default Movie;
+}

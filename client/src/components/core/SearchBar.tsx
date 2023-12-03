@@ -6,7 +6,7 @@ import { films } from "../../data/store";
 import { Movie } from "../../types/Movie";
 
 const numOfSuggestions = 5;
-const SearchBar = () => {
+export default function SearchBar() {
   const search = useNavigate();
   const [movies] = useAtom(films);
   const [searchVal, setSearchVal] = useState("");
@@ -82,4 +82,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+
