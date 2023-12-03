@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Transition } from "@headlessui/react";
 import { useMenuReset } from "../../hooks/useMenuReset";
 import MobileMenu from "../nav/MobileMenu";
 import DesktopMenu from "../nav/DesktopMenu";
@@ -31,8 +32,15 @@ export default function Header() {
       </div>
       <DesktopMenu />
       <MobileButton active={active} showMobile={showMobile} />
-
-      {active && <MobileMenu showMobile={showMobile} />}
+      <Transition
+        show={active}
+        className={"fixed top-[4.8rem] right-0"}
+        enter="transition-transform transform duration-500 ease-in-out"
+        enterFrom="translate-x-full"
+        enterTo="translate-x-0"
+      >
+        <MobileMenu showMobile={showMobile} />
+      </Transition>
     </div>
   );
 }

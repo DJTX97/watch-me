@@ -9,7 +9,7 @@ interface MobileMenuProps {
 export default function MobileMenu({ showMobile }: MobileMenuProps) {
   return (
     <div
-      className={`flex flex-col items-center fixed top-[4.8rem] right-0 h-screen md:hidden bg-black/50`}
+      className={`flex flex-col items-center h-screen md:hidden bg-black/50`}
     >
       <nav>
         <ul className="flex flex-col gap-3 w-full pt-5 text-white text-lg uppercase items-center">
