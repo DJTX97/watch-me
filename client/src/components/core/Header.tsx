@@ -6,7 +6,7 @@ import logo from "/assets/images/logo.png";
 import MobileMenu from "../nav/MobileMenu";
 import NormalMenu from "../nav/DesktopMenu";
 
-const Header = () => {
+export default function Header() {
   // 'active' is the mobile menu state and 'isMobile' is the screen size state ('isMobile' is not mandatory.).
   const [active, setActive] = useState(false);
   // const [isMobile, setMobile] = useState(false);
@@ -82,6 +82,4 @@ const Header = () => {
       {active && <MobileMenu showMobile={showMobile} />}
     </div>
   );
-};
-
-export default Header;
+}

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { pages } from "../../nav_routes.json";
 
-const DesktopMenu = () => {
+export default function DesktopMenu() {
   return (
     <nav className="hidden md:flex flex-row-reverse md:flex-row items-center">
       <ul className="flex space-x-5">
@@ -20,4 +20,4 @@ const DesktopMenu = () => {
   );
 };
 
-export default DesktopMenu;
+

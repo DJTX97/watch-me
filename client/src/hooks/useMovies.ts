@@ -13,15 +13,14 @@ export const useMovies = () => {
     const fetchMovies = async () => {
       const response = await fetch(API);
       const data = await response.json();
+      // setTimeout(() => {
+      //   setMovies(data);
+      // }, 2000);
       setMovies(data);
     };
-    
+
     if (!movies.length) {
       fetchMovies();
     }
-    // return () => {
-    //     console.log(movies.length)
-    //     console.log(movies)
-    // }
   }, []);
 };

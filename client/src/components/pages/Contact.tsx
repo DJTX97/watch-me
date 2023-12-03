@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const Contact = () => {
+export default function Contact() {
   const confirm = useNavigate();
 
-  const [content, setContent] = useState({ name: "", email: "", message: "" });
+  const [content, setContent] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // console.log(content)
@@ -87,6 +91,4 @@ const Contact = () => {
       </form>
     </div>
   );
-};
-
-export default Contact;
+}

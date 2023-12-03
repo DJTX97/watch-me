@@ -6,7 +6,7 @@ interface MobileMenuProps {
   showMobile: () => void;
 }
 
-const MobileMenu = ({ showMobile }: MobileMenuProps) => {
+export default function MobileMenu({ showMobile }: MobileMenuProps) {
   return (
     <div
       className={`flex flex-col items-center fixed top-0 right-0 h-screen md:hidden bg-black/50`}
@@ -32,6 +32,4 @@ const MobileMenu = ({ showMobile }: MobileMenuProps) => {
       </nav>
     </div>
   );
-};
-
-export default MobileMenu;
+}
