@@ -3,7 +3,6 @@ import { useState } from "react";
 import { postData } from "../../utils/postData";
 
 export default function Contact() {
-  const confirm = useNavigate();
   const navigate = useNavigate();
 
   const [content, setContent] = useState({
@@ -21,13 +20,13 @@ export default function Contact() {
     try {
       const response = await postData("form_submissions", content);
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error("Something went wrong");
       } else {
-        confirm("confirmation", {
-          state: content,
-        });
+        navigate("confirmation")
+        //console.log(response)
       }
+      
     } catch (error) {
       console.error("Server not responding!\n", error);
       navigate("error");
