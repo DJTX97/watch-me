@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { postData } from "../../utils/postData";
 
 export default function Contact() {
@@ -11,14 +11,13 @@ export default function Contact() {
     email: "",
     message: "",
   });
-  const [isSending, setIsSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // console.log(content)
 
     // Prevents page refresh to avoid losing state data.
     e.preventDefault();
-    setIsSending(true);
+
     try {
       const response = await postData("form_submissions", content);
 
@@ -32,8 +31,6 @@ export default function Contact() {
     } catch (error) {
       console.error("Server not responding!\n", error);
       navigate("error");
-    } finally {
-      setIsSending(false);
     }
   };
 
