@@ -48,6 +48,15 @@ app.get("/genres", async (req, res) => {
   }
 });
 
+//get all genres
+app.post("/form_submissions", async (req, res) => {
+  try {
+    console.log(req.body)
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 if (process.env.NODE_ENV === "development") {
   app.listen(devPort, () => {
     console.log(`Example app listening on http://localhost:${devPort}`);
