@@ -5,7 +5,7 @@ export default function Home() {
   useOverflow(false);
 
   return (
-    <div className="flex flex-col items-center pt-20 min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <p className="text-2xl md:text-4xl select-none text-center text-white">
         WatchMe.com - The ONLY MOVIE site you'll EVER NEED!
       </p>

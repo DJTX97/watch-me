@@ -23,7 +23,7 @@ export default function Error() {
   const goBack = useNavigate();
 
   const handleClick = () => {
-    goBack("/library");
+    goBack("/");
   };
 
   return (
