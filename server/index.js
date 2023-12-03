@@ -48,12 +48,17 @@ app.get("/genres", async (req, res) => {
   }
 });
 
-//get all genres
+//receive form submissions
 app.post("/form_submissions", async (req, res) => {
   try {
-    console.log(req.body)
+    res.status(201).json({
+      status: { code: 201, message: "Form submitted successfully" }
+    });
+    console.log(req.body);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      status: { code: 500, message: "Internal server error" },
+    });
   }
 });
 
