@@ -1,56 +1,26 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { useState, useEffect, useRef } from "react";
-
-import logo from "/assets/images/logo.png";
+import { Transition } from "@headlessui/react";
+import { useMenuReset } from "../../hooks/useMenuReset";
 import MobileMenu from "../nav/MobileMenu";
-import NormalMenu from "../nav/DesktopMenu";
+import DesktopMenu from "../nav/DesktopMenu";
+import logo from "/assets/images/logo.png";
+import MobileButton from "../nav/MobileButton";
 
-const Header = () => {
+export default function Header() {
   // 'active' is the mobile menu state and 'isMobile' is the screen size state ('isMobile' is not mandatory.).
   const [active, setActive] = useState(false);
-  // const [isMobile, setMobile] = useState(false);
 
   // onClick function that toggles 'active' state of mobile menu.
   const showMobile = () => {
     setActive(!active);
-    // console.log(active);
   };
 
-  // Performs state checks on the mobile menu and the screen size in order to stop the mobile menu from staying open even after resizing the screen (without this the only way to close it is to click the 'X').
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 767) {
-        setActive(false);
-        // setMobile(false);
-      }
-      // else if (window.innerWidth < 768) {
-      //   setMobile(true);
-      // }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  useMenuReset(setActive);
 
-  // This closes mobile menu when clicking on the screen:
-  // 1. Define ref.
-  // 2. Add ref to hamburger button.
-  // 3. Define 'hide' function to check the click event and hide the menu.
-  // 4. Bind the 'hide' function to an event listener inside a useEffect.
-  const ref = useRef<HTMLButtonElement | null>(null);
-
-  const hide = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setActive(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", hide);
-    //Removing the event listener causes it to not work sometimes (should leave it on for now)
-  }, []);
+  // useEffect(() => {
+  //   console.log(active);
+  // }, [active]);
 
   // z-index forces element to appear in front of others with lower index than themselves (issue with cards popping over sticky header)
   return (
@@ -60,28 +30,17 @@ const Header = () => {
           <img src={logo} className="h-16 ml-5 mt-2 mb-1" alt="" />
         </Link>
       </div>
-
-      <div className="flex flex-row-reverse md:flex-row gap-20">
-        <NormalMenu />
-        {/* <SearchBar /> */}
-      </div>
-
-      {/* Hidding hamburger menu when opening the mobile menu is necessary to avoid visual overlap. */}
-      <button
-        className={`md:hidden ${active && "invisible"}`}
-        onClick={showMobile}
-        ref={ref}
+      <DesktopMenu />
+      <MobileButton active={active} showMobile={showMobile} />
+      <Transition
+        show={active}
+        className={"fixed top-[4.8rem] right-0"}
+        enter="transition-transform transform duration-500 ease-in-out"
+        enterFrom="translate-x-full"
+        enterTo="translate-x-0"
       >
-        <GiHamburgerMenu
-          size={70}
-          color="white"
-          className="p-1 mx-3 cursor-pointer"
-        />
-      </button>
-
-      {active && <MobileMenu showMobile={showMobile} />}
+        <MobileMenu showMobile={showMobile} />
+      </Transition>
     </div>
   );
-};
-
-export default Header;
+}

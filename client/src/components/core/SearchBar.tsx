@@ -6,13 +6,13 @@ import { films } from "../../data/store";
 import { Movie } from "../../types/Movie";
 
 const numOfSuggestions = 5;
-const SearchBar = () => {
+export default function SearchBar() {
   const search = useNavigate();
   const [movies] = useAtom(films);
   const [searchVal, setSearchVal] = useState("");
 
   const seeResult = () => {
-    const options = movies?.filter(
+    const options: Movie[] = movies?.filter(
       (movie: Movie) => movie.title === searchVal && movie.title
     );
 
@@ -82,4 +82,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+

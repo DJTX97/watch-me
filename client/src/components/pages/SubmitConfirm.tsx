@@ -1,21 +1,7 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useOverflow } from "../../hooks/useOverflow";
 
-const SubmitConfirm = () => {
-  useEffect(() => {
-    document.body.className !== "overflow-hidden" &&
-      document.body.classList.add("overflow-hidden");
-
-    return () => {
-      document.body.className = "";
-    };
-  }, []);
-
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log(location.state);
-  }, [location.state]);
+export default function SubmitConfirm() {
+  useOverflow(false);
 
   return (
     <div className="flex justify-center min-h-screen">
@@ -24,6 +10,4 @@ const SubmitConfirm = () => {
       </div>
     </div>
   );
-};
-
-export default SubmitConfirm;
+}

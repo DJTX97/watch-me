@@ -1,20 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { postData } from "../../utils/postData";
 
-const Contact = () => {
-  const confirm = useNavigate();
+export default function Contact() {
+  const navigate = useNavigate();
 
-  const [content, setContent] = useState({ name: "", email: "", message: "" });
+  const [content, setContent] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // console.log(content)
 
     // Prevents page refresh to avoid losing state data.
     e.preventDefault();
 
-    confirm("confirmation", {
-      state: content,
-    });
+    try {
+      const response = await postData("form_submissions", content);
+
+      if (!response) {
+        throw new Error("Something went wrong");
+      } else {
+        navigate("confirmation")
+        //console.log(response)
+      }
+      
+    } catch (error) {
+      console.error("Server not responding!\n", error);
+      navigate("error");
+    }
   };
 
   const [touchedSubmit, setTouchedSubmit] = useState(false);
@@ -87,6 +103,4 @@ const Contact = () => {
       </form>
     </div>
   );
-};
-
-export default Contact;
+}

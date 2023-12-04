@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import PIMG from "/assets/images/placeholder.png";
+import placeholder from "/assets/images/placeholder.png";
 
 interface CardProps {
   name: string;
@@ -10,7 +10,14 @@ interface CardProps {
   genres: string[];
 }
 
-const Card = ({ name, image, actors, plot, year, genres }: CardProps) => {
+export default function Card({
+  name,
+  image,
+  actors,
+  plot,
+  year,
+  genres,
+}: CardProps) {
   const navigate = useNavigate();
 
   const seeMovie = () => {
@@ -24,8 +31,6 @@ const Card = ({ name, image, actors, plot, year, genres }: CardProps) => {
     });
   };
 
-
-
   return (
     <div
       className={`w-[250px] h-[350px] grid grid-rows-auto justify-items-center m-5 rounded-3xl bg-black/40 shadow-lg hover:scale-105 hover:shadow-red-600 cursor-pointer transition-all`}
@@ -37,12 +42,12 @@ const Card = ({ name, image, actors, plot, year, genres }: CardProps) => {
       <img
         className="w-[200px] h-[250px]"
         src={image}
-        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => (e.target as HTMLImageElement).src = PIMG}
+        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+          ((e.target as HTMLImageElement).src = placeholder)
+        }
         alt=""
       />
       <p className="text-center text-xl px-3 text-white">{name}</p>
     </div>
   );
-};
-
-export default Card;
+}
